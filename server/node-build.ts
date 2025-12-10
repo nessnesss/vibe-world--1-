@@ -3,16 +3,12 @@ import { createProductionServer } from "./production";
 import express from "express";
 
 async function start() {
-  const { httpServer } = await createProductionServer();
+  const { httpServer, app } = await createProductionServer();
   const port = process.env.PORT || 3000;
 
   // In production, serve the built SPA files
   const __dirname = import.meta.dirname;
   const distPath = path.join(__dirname, "../spa");
-
-  // Note: Express middleware is already set up in createExpressServer()
-  // Just need to serve static files and handle catch-all for React Router
-  const app = httpServer as any;
 
   app.use(express.static(distPath));
 

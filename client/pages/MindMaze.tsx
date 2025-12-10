@@ -7,7 +7,8 @@ export default function MindMaze() {
   const navigate = useNavigate();
   const [gameMode, setGameMode] = useState<"lobby" | "room" | "playing">("lobby");
   const [roomCode, setRoomCode] = useState("");
-  const [username, setUsername] = useState("");
+  const [createUsername, setCreateUsername] = useState("");
+  const [joinUsername, setJoinUsername] = useState("");
   const [joinError, setJoinError] = useState("");
   const [playerId, setPlayerId] = useState(() =>
     Math.random().toString(36).substring(2, 11)
@@ -20,13 +21,20 @@ export default function MindMaze() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ gameType: "mindmaze" }),
       });
+      if (!response.ok) {
+        setJoinError("Failed to create room. Please try again.");
+        return;
+      }
       const data = await response.json();
       setRoomCode(data.roomCode);
+      setUsername(createUsername);
       setGameMode("playing");
     } catch (error) {
       setJoinError("Failed to create room. Please try again.");
     }
   };
+
+  const [username, setUsername] = useState("");
 
   const handleJoinRoom = async (code: string) => {
     try {
@@ -36,6 +44,7 @@ export default function MindMaze() {
         return;
       }
       setRoomCode(code);
+      setUsername(joinUsername);
       setGameMode("playing");
     } catch (error) {
       setJoinError("Failed to join room. Please check the code.");
@@ -104,13 +113,13 @@ export default function MindMaze() {
               <input
                 type="text"
                 placeholder="Your username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={createUsername}
+                onChange={(e) => setCreateUsername(e.target.value)}
                 className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-500 mb-4 focus:outline-none focus:border-purple-500/50"
               />
               <button
                 onClick={handleCreateRoom}
-                disabled={!username}
+                disabled={!createUsername}
                 className="w-full py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Create Game
@@ -142,8 +151,8 @@ export default function MindMaze() {
               <input
                 type="text"
                 placeholder="Your username"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                value={joinUsername}
+                onChange={(e) => setJoinUsername(e.target.value)}
                 className="w-full px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-500 mb-4 focus:outline-none focus:border-purple-500/50"
               />
               {joinError && (
@@ -151,7 +160,7 @@ export default function MindMaze() {
               )}
               <button
                 onClick={() => handleJoinRoom(roomCode)}
-                disabled={!roomCode || !username}
+                disabled={!roomCode || !joinUsername}
                 className="w-full py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg hover:shadow-purple-500/50 transition-all transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 Join Game

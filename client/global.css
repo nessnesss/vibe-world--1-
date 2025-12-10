@@ -1,0 +1,167 @@
+/** @import must precede all other statements */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /**
+   * Tailwind CSS theme
+   * tailwind.config.ts expects the following color variables to be expressed as HSL values.
+   * A different format will require also updating the theme in tailwind.config.ts.
+  */
+  :root {
+    --background: 12 20% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 12 20% 12%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 12 20% 12%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 260 90% 60%;
+    --primary-foreground: 12 20% 6%;
+
+    --secondary: 20 90% 55%;
+    --secondary-foreground: 12 20% 6%;
+
+    --muted: 210 40% 40%;
+    --muted-foreground: 210 14% 66%;
+
+    --accent: 180 90% 50%;
+    --accent-foreground: 12 20% 6%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 210 40% 20%;
+    --input: 210 40% 20%;
+    --ring: 260 90% 60%;
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 12 20% 8%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 260 90% 60%;
+    --sidebar-primary-foreground: 12 20% 6%;
+    --sidebar-accent: 20 90% 55%;
+    --sidebar-accent-foreground: 12 20% 6%;
+    --sidebar-border: 210 40% 20%;
+    --sidebar-ring: 260 90% 60%;
+
+    --game-mindmaze: 260 90% 60%;
+    --game-brainrush: 20 90% 55%;
+    --game-crazydraws: 180 90% 50%;
+  }
+
+  .dark {
+    --background: 12 20% 6%;
+    --foreground: 210 40% 98%;
+
+    --card: 12 20% 12%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 12 20% 12%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 260 90% 60%;
+    --primary-foreground: 12 20% 6%;
+
+    --secondary: 20 90% 55%;
+    --secondary-foreground: 12 20% 6%;
+
+    --muted: 210 40% 40%;
+    --muted-foreground: 210 14% 66%;
+
+    --accent: 180 90% 50%;
+    --accent-foreground: 12 20% 6%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 210 40% 20%;
+    --input: 210 40% 20%;
+    --ring: 260 90% 60%;
+
+    --sidebar-background: 12 20% 8%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 260 90% 60%;
+    --sidebar-primary-foreground: 12 20% 6%;
+    --sidebar-accent: 20 90% 55%;
+    --sidebar-accent-foreground: 12 20% 6%;
+    --sidebar-border: 210 40% 20%;
+    --sidebar-ring: 260 90% 60%;
+
+    --game-mindmaze: 260 90% 60%;
+    --game-brainrush: 20 90% 55%;
+    --game-crazydraws: 180 90% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Inter", sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: "Poppins", sans-serif;
+    @apply font-bold tracking-tight;
+  }
+
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl;
+  }
+
+  h2 {
+    @apply text-3xl md:text-4xl;
+  }
+
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+
+  :where(p, span, li, a, button, label, td, th) {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  pre,
+  code {
+    overflow-x: auto;
+    white-space: pre;
+    font-family: "Fira Code", monospace;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105;
+  }
+
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/90 px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105;
+  }
+
+  .btn-accent {
+    @apply bg-accent text-accent-foreground hover:bg-accent/90 px-6 py-3 rounded-lg font-semibold transition-all duration-200 transform hover:scale-105;
+  }
+
+  .glass-effect {
+    @apply bg-white/10 backdrop-blur-xl border border-white/20;
+  }
+
+  .game-card {
+    @apply rounded-xl overflow-hidden glass-effect hover:border-primary/50 transition-all duration-300 transform hover:scale-105 cursor-pointer;
+  }
+}
